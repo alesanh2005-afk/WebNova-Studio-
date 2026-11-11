@@ -1,4 +1,4 @@
-<DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-PT">
 <head>
 <meta charset="utf-8">
@@ -184,9 +184,10 @@ nav a:not(.btn){display:none}
 <section id="contacto" class="contact"><div class="wrap cgrid">
 <div><h2>Vamos falar do seu projeto?</h2><p class="lead">Conte-nos o que precisa. Respondemos em 1 dia útil com uma ideia de preço e prazo.</p></div>
 <form id="f">
-<label>Nome<input type="text" name="n" required autocomplete="name"></label>
-<label>Email<input type="email" name="e" required autocomplete="email"></label>
-<label>O que precisa?<textarea name="m"></textarea></label>
+<label>Nome<input type="text" name="Nome" required autocomplete="name"></label>
+<label>Email<input type="email" name="email" required autocomplete="email"></label>
+<label>O que precisa?<textarea name="Mensagem"></textarea></label>
+<input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
 <button class="btn" type="submit">Enviar pedido</button>
 <p id="ok" role="status"></p>
 </form>
@@ -200,7 +201,9 @@ var mm=matchMedia('(prefers-reduced-motion:reduce)').matches,sc=document.getElem
 if(!mm){st.addEventListener('pointermove',function(e){var k=st.getBoundingClientRect(),x=(e.clientX-k.left)/k.width-.5,y=(e.clientY-k.top)/k.height-.5;sc.style.setProperty('--ry',(x*30)+'deg');sc.style.setProperty('--rx',(10-y*24)+'deg')});
 st.addEventListener('pointerleave',function(){sc.style.removeProperty('--ry');sc.style.removeProperty('--rx')});
 document.querySelectorAll('.plan').forEach(function(p){p.addEventListener('pointermove',function(e){var k=p.getBoundingClientRect(),x=(e.clientX-k.left)/k.width-.5,y=(e.clientY-k.top)/k.height-.5;p.style.transform='rotateX('+(-y*10)+'deg) rotateY('+(x*10)+'deg)'});p.addEventListener('pointerleave',function(){p.style.transform=''})})}
-document.getElementById('f').addEventListener('submit',function(e){e.preventDefault();document.getElementById('ok').textContent='Pedido enviado. Obrigado, falamos em breve.';this.reset()});
+var f=document.getElementById('f'),ok=document.getElementById('ok');
+f.addEventListener('submit',function(e){e.preventDefault();var d=new FormData(f);d.append('_subject','Novo pedido de orçamento – WebNova Studio');d.append('_captcha','false');ok.style.color='';ok.textContent='A enviar…';
+fetch('https://formsubmit.co/ajax/alesanh2005@gmail.com',{method:'POST',headers:{Accept:'application/json'},body:d}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(){ok.textContent='Pedido enviado. Obrigado, falamos em breve.';f.reset()}).catch(function(){ok.style.color='#FFB4B4';ok.textContent='Não foi possível enviar. Tente novamente mais tarde.'})});
 </script>
 </body>
 </html>
